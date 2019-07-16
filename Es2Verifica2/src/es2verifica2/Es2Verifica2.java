@@ -6,6 +6,8 @@
 package es2verifica2;
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,11 +19,35 @@ public class Es2Verifica2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Scanner input = new Scanner(System.in);
-      
-        System.out.println("Digitate quanti numeri inserire");
-        int n = input.nextInt();
+        try {
+            // TODO code application logic here
+            Scanner input = new Scanner(System.in);
+
+            DatiCondivisi datiC = new DatiCondivisi();
+
+            System.out.println("Digitate quanti numeri inserire");
+            int n = input.nextInt();
+
+            ThGenera th1 = new ThGenera(n, datiC);
+            ThContaPari th2 = new ThContaPari(datiC);
+            ThContaDispari th3 = new ThContaDispari(datiC);
+            ThVisualizza th4 = new ThVisualizza(datiC);
+
+            th1.start();
+            th2.start();
+            th3.start();
+            th4.start();
+
+            th1.join();
+            th2.join();
+            th3.join();
+            th4.join();
+            
+            datiC.visualizzaZeri();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Es2Verifica2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
 }

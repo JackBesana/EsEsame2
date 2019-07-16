@@ -21,6 +21,9 @@ public class ThContaPari extends Thread {
     public void run() {
         for (int i = 0; i < datiC.array.size(); i++) {
             if ((datiC.array.get(i) % 2) == 0) {
+                if ((datiC.array.get(i) / 2) == 0) {
+                    datiC.contaZero();
+                }
                 datiC.lettoPari();
             }
         }

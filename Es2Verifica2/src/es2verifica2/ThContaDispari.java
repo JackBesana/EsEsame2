@@ -10,7 +10,7 @@ package es2verifica2;
  * @author besan
  */
 public class ThContaDispari extends Thread {
-     
+
     DatiCondivisi datiC = new DatiCondivisi();
 
     public ThContaDispari(DatiCondivisi ptrDati) {

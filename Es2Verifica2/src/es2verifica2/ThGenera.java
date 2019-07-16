@@ -12,11 +12,10 @@ import java.util.Random;
  *
  * @author besan
  */
-public class ThGenera {
+public class ThGenera extends Thread {
 
-    
     DatiCondivisi datiC = new DatiCondivisi();
-    
+
     public ThGenera(int n, DatiCondivisi ptrDati) {
         datiC = ptrDati;
         Random rand = new Random();
@@ -24,7 +23,7 @@ public class ThGenera {
             datiC.array.add(rand.nextInt(37));
             if ((datiC.array.get(i) % 2) == 0) {
                 datiC.InseritoPari();
-            } else{
+            } else {
                 datiC.InseritoDispari();
             }
         }
