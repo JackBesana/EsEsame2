@@ -12,17 +12,24 @@ package es2verifica2;
 public class ThContaDispari extends Thread {
 
     DatiCondivisi datiC = new DatiCondivisi();
+    int buffer;
+    int numero;
 
-    public ThContaDispari(DatiCondivisi ptrDati) {
+    public ThContaDispari(int n, DatiCondivisi ptrDati) {
         datiC = ptrDati;
+        buffer = datiC.getBuffer();
+        numero = n;
     }
 
     @Override
     public void run() {
-        for (int i = 0; i < datiC.array.size(); i++) {
-            if ((datiC.array.get(i) % 2) != 0) {
+        for (int i = 0; i < numero; i++) {
+            datiC.chiediPermesso2();
+            buffer = datiC.getBuffer();
+            if ((buffer % 2) != 0) {
                 datiC.lettoDispari();
             }
+            datiC.daiPermesso3();
         }
     }
 }

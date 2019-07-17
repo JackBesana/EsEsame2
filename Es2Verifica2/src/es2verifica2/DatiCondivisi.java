@@ -5,7 +5,6 @@
  */
 package es2verifica2;
 
-import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,18 +15,30 @@ import java.util.logging.Logger;
  */
 public class DatiCondivisi {
 
-    ArrayList<Integer> array = new ArrayList<>();
     boolean inseritoPari = false;
     boolean inseritoDispari = false;
     int contaPari = 0;
     int contaDispari = 0;
     int contaZeri = 0;
-    private Semaphore sem1;
-    private Semaphore sem2;
+    private Semaphore sem1; //contapari
+    private Semaphore sem2;//contadispari
+    private Semaphore sem3;//visualizza
+    private Semaphore sem4;//genera
+    private int buffer;
 
     public DatiCondivisi() {
         sem1 = new Semaphore(0);
         sem2 = new Semaphore(0);
+        sem3 = new Semaphore(0);
+        sem4 = new Semaphore(1);
+    }
+
+    public int getBuffer() {
+        return buffer;
+    }
+
+    public void setBuffer(int buffer) {
+        this.buffer = buffer;
     }
 
     public void InseritoPari() {
@@ -49,6 +60,7 @@ public class DatiCondivisi {
     }
 
     public void visualizza() {
+        System.out.println("Il numero estratto è: "+buffer);
         System.out.println("Ci sono " + contaPari + " numeri pari");
         System.out.println("Ci sono " + contaDispari + " numeri dispari");
 
@@ -56,11 +68,6 @@ public class DatiCondivisi {
             System.out.println("L'ultimo numero inserito è pari");
         } else {
             System.out.println("L'ultimo numero inserito è dispari");
-        }
-
-        System.out.println("I numeri contenuti sono: ");
-        for (int i = 0; i < array.size(); i++) {
-            System.out.println(array.get(i));
         }
     }
 
@@ -91,6 +98,30 @@ public class DatiCondivisi {
     public void chiediPermesso2() {
         try {
             sem2.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void daiPermesso3() {
+        sem3.release();
+    }
+
+    public void chiediPermesso3() {
+        try {
+            sem3.acquire();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void daiPermesso4() {
+        sem4.release();
+    }
+
+    public void chiediPermesso4() {
+        try {
+            sem4.acquire();
         } catch (InterruptedException ex) {
             Logger.getLogger(DatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
         }

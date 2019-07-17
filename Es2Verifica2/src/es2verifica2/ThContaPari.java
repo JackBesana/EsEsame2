@@ -12,20 +12,28 @@ package es2verifica2;
 public class ThContaPari extends Thread {
 
     DatiCondivisi datiC = new DatiCondivisi();
+    int buffer;
+    int numero;
 
-    public ThContaPari(DatiCondivisi ptrDati) {
+    public ThContaPari(int n, DatiCondivisi ptrDati) {
         datiC = ptrDati;
+        buffer = datiC.getBuffer();
+        numero = n;
     }
 
     @Override
     public void run() {
-        for (int i = 0; i < datiC.array.size(); i++) {
-            if ((datiC.array.get(i) % 2) == 0) {
-                if ((datiC.array.get(i) / 2) == 0) {
+        for (int i = 0; i < numero; i++) {
+            datiC.chiediPermesso1();
+            buffer = datiC.getBuffer();
+            if ((buffer % 2) == 0) {
+                if ((buffer / 2) == 0) {
                     datiC.contaZero();
+                } else {
+                    datiC.lettoPari();
                 }
-                datiC.lettoPari();
             }
+            datiC.daiPermesso2();
         }
     }
 }

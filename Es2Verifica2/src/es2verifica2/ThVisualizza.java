@@ -12,13 +12,19 @@ package es2verifica2;
 public class ThVisualizza extends Thread {
 
     DatiCondivisi datiC = new DatiCondivisi();
+    int numero;
 
-    public ThVisualizza(DatiCondivisi ptrDati) {
+    public ThVisualizza(int n, DatiCondivisi ptrDati) {
         datiC = ptrDati;
+        numero = n;
     }
 
     @Override
     public void run() {
-        datiC.visualizza();
+        for (int i = 0; i < numero; i++) {
+            datiC.chiediPermesso3();
+            datiC.visualizza();
+            datiC.daiPermesso4();
+        }
     }
 }

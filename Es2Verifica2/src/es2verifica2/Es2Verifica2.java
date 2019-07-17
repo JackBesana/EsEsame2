@@ -29,9 +29,9 @@ public class Es2Verifica2 {
             int n = input.nextInt();
 
             ThGenera th1 = new ThGenera(n, datiC);
-            ThContaPari th2 = new ThContaPari(datiC);
-            ThContaDispari th3 = new ThContaDispari(datiC);
-            ThVisualizza th4 = new ThVisualizza(datiC);
+            ThContaPari th2 = new ThContaPari(n,datiC);
+            ThContaDispari th3 = new ThContaDispari(n,datiC);
+            ThVisualizza th4 = new ThVisualizza(n,datiC);
 
             th1.start();
             th2.start();
@@ -42,12 +42,12 @@ public class Es2Verifica2 {
             th2.join();
             th3.join();
             th4.join();
-            
+
             datiC.visualizzaZeri();
         } catch (InterruptedException ex) {
             Logger.getLogger(Es2Verifica2.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
 }
