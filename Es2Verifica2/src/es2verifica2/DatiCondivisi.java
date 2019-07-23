@@ -5,6 +5,7 @@
  */
 package es2verifica2;
 
+import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,9 +15,11 @@ import java.util.logging.Logger;
  * @author besan
  */
 public class DatiCondivisi {
-
-    boolean inseritoPari = false;
-    boolean inseritoDispari = false;
+    ArrayList <Integer>v=new ArrayList <Integer>();
+    int trovatoPari=0;
+    int trovatoDispari=0;
+    int lettoPari = 0;
+    int lettoDispari = 0;
     int contaPari = 0;
     int contaDispari = 0;
     int contaZeri = 0;
@@ -24,7 +27,6 @@ public class DatiCondivisi {
     private Semaphore sem2;//contadispari
     private Semaphore sem3;//visualizza
     private Semaphore sem4;//genera
-    private int buffer;
 
     public DatiCondivisi() {
         sem1 = new Semaphore(0);
@@ -33,49 +35,33 @@ public class DatiCondivisi {
         sem4 = new Semaphore(1);
     }
 
-    public int getBuffer() {
-        return buffer;
-    }
-
-    public void setBuffer(int buffer) {
-        this.buffer = buffer;
-    }
-
-    public void InseritoPari() {
-        inseritoPari = true;
-        inseritoDispari = false;
-    }
-
-    public void InseritoDispari() {
-        inseritoDispari = true;
-        inseritoPari = false;
-    }
-
-    public void lettoPari() {
+    public synchronized void InseritoPari() {
         contaPari++;
     }
 
-    public void lettoDispari() {
+    public synchronized void InseritoDispari() {
         contaDispari++;
     }
 
-    public void visualizza() {
-        System.out.println("Il numero estratto è: "+buffer);
+    public synchronized void visualizza() {
+        System.out.println("Il numero estratto è: " + v.get(v.size()-1));
         System.out.println("Ci sono " + contaPari + " numeri pari");
         System.out.println("Ci sono " + contaDispari + " numeri dispari");
-
-        if (inseritoPari == true) {
-            System.out.println("L'ultimo numero inserito è pari");
-        } else {
-            System.out.println("L'ultimo numero inserito è dispari");
-        }
     }
 
-    public void contaZero() {
+    public synchronized void trovaPari() {
+        trovatoPari++;
+    }
+
+    public synchronized void trovaDispari() {
+        trovatoDispari++;
+    }
+
+    public synchronized void contaZero() {
         contaZeri++;
     }
 
-    public void visualizzaZeri() {
+    public synchronized void visualizzaZeri() {
         System.out.println("Sono stati estratti " + contaZeri + " zeri");
     }
 
@@ -102,7 +88,7 @@ public class DatiCondivisi {
             Logger.getLogger(DatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void daiPermesso3() {
         sem3.release();
     }
@@ -114,7 +100,7 @@ public class DatiCondivisi {
             Logger.getLogger(DatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void daiPermesso4() {
         sem4.release();
     }

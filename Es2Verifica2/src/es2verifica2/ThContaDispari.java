@@ -17,7 +17,7 @@ public class ThContaDispari extends Thread {
 
     public ThContaDispari(int n, DatiCondivisi ptrDati) {
         datiC = ptrDati;
-        buffer = datiC.getBuffer();
+        buffer = 0;
         numero = n;
     }
 
@@ -25,9 +25,9 @@ public class ThContaDispari extends Thread {
     public void run() {
         for (int i = 0; i < numero; i++) {
             datiC.chiediPermesso2();
-            buffer = datiC.getBuffer();
+            buffer=datiC.v.get(datiC.v.size()-1);
             if ((buffer % 2) != 0) {
-                datiC.lettoDispari();
+                datiC.InseritoDispari();
             }
             datiC.daiPermesso3();
         }

@@ -15,14 +15,12 @@ import java.util.Random;
 public class ThGenera extends Thread {
 
     DatiCondivisi datiC = new DatiCondivisi();
-    int buffer;
     int numero;
-
+    int buffer;
     public ThGenera(int n, DatiCondivisi ptrDati) {
-
-        buffer = datiC.getBuffer();
         datiC = ptrDati;
         numero = n;
+        buffer=0;
     }
 
     @Override
@@ -31,12 +29,7 @@ public class ThGenera extends Thread {
         for (int i = 0; i < numero; i++) {
             datiC.chiediPermesso4();
             buffer = (rand.nextInt(37));
-            if ((buffer % 2) == 0) {
-                datiC.InseritoPari();
-            } else {
-                datiC.InseritoDispari();
-            }
-            datiC.setBuffer(buffer);
+            datiC.v.add(buffer);
             datiC.daiPermesso1();
         }
     }

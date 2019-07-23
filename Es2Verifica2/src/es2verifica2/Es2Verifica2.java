@@ -32,7 +32,8 @@ public class Es2Verifica2 {
             ThContaPari th2 = new ThContaPari(n,datiC);
             ThContaDispari th3 = new ThContaDispari(n,datiC);
             ThVisualizza th4 = new ThVisualizza(n,datiC);
-
+            ThConfronta th5=new ThConfronta(n, datiC);
+            
             th1.start();
             th2.start();
             th3.start();
@@ -43,6 +44,9 @@ public class Es2Verifica2 {
             th3.join();
             th4.join();
 
+            th5.start();
+            
+            th5.join();
             datiC.visualizzaZeri();
         } catch (InterruptedException ex) {
             Logger.getLogger(Es2Verifica2.class.getName()).log(Level.SEVERE, null, ex);

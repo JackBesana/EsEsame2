@@ -17,20 +17,20 @@ public class ThContaPari extends Thread {
 
     public ThContaPari(int n, DatiCondivisi ptrDati) {
         datiC = ptrDati;
-        buffer = datiC.getBuffer();
         numero = n;
+        buffer=0;
     }
 
     @Override
     public void run() {
         for (int i = 0; i < numero; i++) {
             datiC.chiediPermesso1();
-            buffer = datiC.getBuffer();
+            buffer=datiC.v.get(datiC.v.size()-1);
             if ((buffer % 2) == 0) {
                 if ((buffer / 2) == 0) {
                     datiC.contaZero();
                 } else {
-                    datiC.lettoPari();
+                    datiC.InseritoPari();
                 }
             }
             datiC.daiPermesso2();
